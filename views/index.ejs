@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>ソート</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+
+    <body>
+        <%- include('header'); %>
+        <form action="/index" method="post">
+            <div class="num-form">
+                <ul>
+                <%
+                const numLength = 5;
+                for(let i = 1 ; i <= numLength ; i++)
+                {
+                    %>
+                    <li><input type="number" name="num<%= i %>" placeholder="num<%= i %>" required></li>
+                    <input type="hidden" name="numLength" value="<%=numLength%>">
+                    <%
+                } %>
+                </ul>
+            </div>
+
+            <select name="sortselect">
+                <%
+                let count = 0;
+                sortMethodArray.forEach((sortMethod) =>
+                {
+                    if(locals.selectedNum == count)
+                    {
+                        %>
+                        <option value="<%= sortMethod %>" selected>
+                            <%= sortMethod %>
+                        </option>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                        <option value="<%= sortMethod %>">
+                            <%= sortMethod %>
+                        </option>
+                        <%
+                    }
+                    count++;
+                });
+                %>
+            </select>
+
+            <input type="submit" value="ソート">
+        </form>
+
+        <p>結果</p>
+        <div class="result-text">
+            <% if (results.length > 0) 
+            { %>
+                
+                <ul class="results">
+                <%
+                let count = 1;
+                results.forEach(result =>
+                {
+                    if(count < results.length)
+                    {
+                        %>
+                        <li><p><%=result %> ,</p></li>
+                        <%
+                    }
+                    else
+                    {
+                        %>
+                            <li><p><%=result %></p></li>
+                        <%
+                    }
+                    count++;
+                });
+                %>
+                </ul>
+            <% } %>
+        </div>
+    </body>
+</html>
